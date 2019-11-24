@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default ({ handleChange, handleSubmit }) => (
+const NewUserForm = ({ handleChange, handleSubmit }) => (
   <form data-testid="newUserForm" onSubmit={handleSubmit}>
     <label htmlFor="firstName">
         First Name
@@ -38,3 +39,10 @@ export default ({ handleChange, handleSubmit }) => (
     <input data-testid="submit-button" type="submit" value="Create" />
   </form>
 );
+
+NewUserForm.propTypes = {
+  handleChange: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+};
+
+export default NewUserForm;

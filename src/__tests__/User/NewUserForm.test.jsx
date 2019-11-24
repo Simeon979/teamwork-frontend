@@ -19,8 +19,11 @@ describe('Renders create user form', () => {
 
   let component;
 
+  const onSubmit = jest.fn();
+  const onChange = jest.fn();
+
   beforeEach(() => {
-    component = render(<NewUser />);
+    component = render(<NewUser handleSubmit={onSubmit} handleChange={onChange} />);
   });
 
   fields.forEach((field) => {

@@ -1,48 +1,59 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 
-const NewUserForm = ({ handleChange, handleSubmit }) => (
-  <form data-testid="newUserForm" onSubmit={handleSubmit}>
-    <label htmlFor="firstName">
-        First Name
-      <input data-testid="firstName" id="firstName" type="text" placeholder="First Name" onChange={handleChange} required />
-    </label>
-    <label htmlFor="lastName">
-        Last Name
-      <input data-testid="lastName" id="lastName" type="text" placeholder="Last Name" onChange={handleChange} required />
-    </label>
-    <label htmlFor="email">
-        Email
-      <input data-testid="email" id="email" type="email" placeholder="Email" onChange={handleChange} required />
-    </label>
-    <label htmlFor="password">
-        Password
-      <input data-testid="password" id="password" type="password" placeholder="Password" onChange={handleChange} required />
-    </label>
-    <label htmlFor="gender">
-        Gender
-      <input data-testid="gender" id="gender" type="text" placeholder="Gender" onChange={handleChange} required />
-    </label>
-    <label htmlFor="jobRole">
-        Job Role
-      <input data-testid="jobRole" id="jobRole" type="text" placeholder="Job Role" onChange={handleChange} required />
-    </label>
-    <label htmlFor="department">
-        Department
-      <input data-testid="department" id="department" type="text" placeholder="Department" onChange={handleChange} required />
-    </label>
-    <label htmlFor="address">
-        Address
-      <input data-testid="address" id="address" type="text" placeholder="Address" onChange={handleChange} required />
-    </label>
+import authService from '../services/auth';
+import NewUserForm from './NewUserForm';
 
-    <input data-testid="submit-button" type="submit" value="Create" />
-  </form>
-);
+const NewUser = ({ notify, history }) => {
+  const cleanState = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    gender: '',
+    jobRole: '',
+    department: '',
+    address: '',
+  };
 
-NewUserForm.propTypes = {
-  handleChange: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
+  const [inputState, setInputState] = useState(cleanState);
+
+  const handleChange = (event) => {
+    setInputState({
+      ...inputState,
+      [event.target.id]: event.target.value,
+    });
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const response = await authService.createUser(inputState);
+      if (response.status === 'error' && response.error.includes('expire')) {
+      // expired token, redirect to login page
+        notify(response.error);
+        window.localStorage.clear();
+        history.push('/signin');
+      } else if (response.status === 'success') {
+        notify(response.data.message);
+        setInputState(cleanState);
+      }
+    } catch (error) {
+      notify('cannot submit your input');
+    }
+  };
+
+  return <NewUserForm handleChange={handleChange} handleSubmit={handleSubmit} state={inputState} />;
 };
 
-export default NewUserForm;
+NewUser.propTypes = {
+  notify: PropTypes.func.isRequired,
+  history: PropTypes.objectOf(PropTypes.func).isRequired,
+};
+
+const NewUserWithHistory = withRouter(NewUser);
+
+export default NewUserWithHistory;
+
+// for testing
+export { NewUser };

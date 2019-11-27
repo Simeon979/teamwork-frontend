@@ -3,7 +3,7 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { render } from '@testing-library/react';
-import NewUser from '../../User/NewUser';
+import NewUserForm from '../../User/NewUserForm';
 
 describe('Renders create user form', () => {
   const fields = [
@@ -21,9 +21,21 @@ describe('Renders create user form', () => {
 
   const onSubmit = jest.fn();
   const onChange = jest.fn();
+  const state = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    gender: '',
+    jobRole: '',
+    department: '',
+    address: '',
+  };
 
   beforeEach(() => {
-    component = render(<NewUser handleSubmit={onSubmit} handleChange={onChange} />);
+    component = render(
+      <NewUserForm handleSubmit={onSubmit} handleChange={onChange} state={state} />,
+    );
   });
 
   fields.forEach((field) => {

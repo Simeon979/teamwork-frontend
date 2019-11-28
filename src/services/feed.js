@@ -1,12 +1,12 @@
-import auth from './auth';
 import url from './url';
+import authService from './auth';
 
 const getAll = async () => {
-  const loginUrl = url('/feed');
+  const feedUrl = url('/feed');
 
   try {
-    const token = auth.getToken();
-    const response = await fetch(loginUrl, {
+    const token = authService.getToken();
+    const response = await fetch(feedUrl, {
       method: 'GET',
       headers: new Headers({
         token,
@@ -15,7 +15,7 @@ const getAll = async () => {
 
     return response.json();
   } catch (err) {
-    return { status: 'error', error: 'unable to login, please try again' };
+    return { status: 'error', error: 'unable to get feeds' };
   }
 };
 

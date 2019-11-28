@@ -7,9 +7,12 @@ const login = async ({ email, password }) => {
   try {
     const response = await fetch(loginUrl, {
       method: 'POST',
-      body: {
+      body: JSON.stringify({
         email,
         password,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
       },
     });
 
@@ -27,7 +30,7 @@ const createUser = async ({
   try {
     const response = await fetch(loginUrl, {
       method: 'POST',
-      body: {
+      body: JSON.stringify({
         firstName,
         lastName,
         email,
@@ -36,9 +39,10 @@ const createUser = async ({
         jobRole,
         department,
         address,
-      },
+      }),
       headers: new Headers({
         token: window.localStorage.getItem('token'),
+        'Content-Type': 'application/json',
       }),
     });
 

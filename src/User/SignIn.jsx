@@ -1,25 +1,55 @@
-import React from 'react';
+
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 
-const SignInForm = ({ handleChange, handleSubmit }) => (
-  <form data-testid="signinForm" onSubmit={handleSubmit}>
-    <label htmlFor="email">
-        Email
-      <input data-testid="email" id="email" type="email" placeholder="Email" onChange={handleChange} required />
-    </label>
+import authService from '../services/auth';
+import SignInForm from './SignInForm';
 
-    <label htmlFor="password">
-        Password
-      <input data-testid="password" id="password" type="password" placeholder="Password" onChange={handleChange} required />
-    </label>
+const SignIn = ({ notify, history }) => {
+  const cleanState = {
+    email: '',
+    password: '',
+  };
 
-    <input data-testid="submit-button" type="submit" value="Sign In" />
-  </form>
-);
+  const [inputState, setInputState] = useState(cleanState);
 
-SignInForm.propTypes = {
-  handleChange: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
+  const handleChange = (event) => {
+    setInputState({
+      ...inputState,
+      [event.target.id]: event.target.value,
+    });
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await authService.login(inputState);
+      if (response.status === 'success') {
+        authService.setUser(response.data.token);
+        notify('Welcome');
+        history.push('/feed');
+      } else if (response.status === 'error') {
+        notify(response.error);
+        setInputState(cleanState);
+      }
+    } catch (error) {
+      console.warn(error);
+      notify('cannot submit your input');
+    }
+  };
+
+  return <SignInForm handleChange={handleChange} handleSubmit={handleSubmit} state={inputState} />;
 };
 
-export default SignInForm;
+SignIn.propTypes = {
+  notify: PropTypes.func.isRequired,
+  history: PropTypes.objectOf(PropTypes.func).isRequired,
+};
+
+const SignInWithHistory = withRouter(SignIn);
+
+export default SignInWithHistory;
+
+// for testing
+export { SignIn };

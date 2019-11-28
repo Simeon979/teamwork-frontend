@@ -3,7 +3,7 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { render } from '@testing-library/react';
-import SignIn from '../../User/SignIn';
+import SignInForm from '../../User/SignInForm';
 
 describe('Renders sign in form', () => {
   const fields = [
@@ -15,8 +15,15 @@ describe('Renders sign in form', () => {
   const onChange = jest.fn();
   const onSubmit = jest.fn();
 
+  const state = {
+    email: '',
+    password: '',
+  };
+
   beforeEach(() => {
-    component = render(<SignIn handleChange={onChange} handleSubmit={onSubmit} />);
+    component = render(
+      <SignInForm handleChange={onChange} handleSubmit={onSubmit} state={state} />,
+    );
   });
 
   fields.forEach((field) => {

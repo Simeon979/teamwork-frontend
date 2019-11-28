@@ -26,7 +26,8 @@ const NewUser = ({ notify, history }) => {
     });
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     try {
       const response = await authService.createUser(inputState);
       if (response.status === 'error' && response.error.includes('expire')) {

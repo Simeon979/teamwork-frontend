@@ -59,6 +59,7 @@ const Feed = () => {
         <h1>Feed</h1>
       </header>
       <main>
+        { feed.data && feed.data.length === 0 && !isLoading && <p>Nothing here at the moment</p>}
         { isLoading
           ? <p>Loading feeds</p>
           : <FeedDisplay feed={feed} />}

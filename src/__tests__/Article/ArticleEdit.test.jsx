@@ -51,7 +51,8 @@ describe('handles input change and submission', () => {
     expect(notify.mock.calls.length).toBe(1);
     expect(notify.mock.calls[0][0]).toBe(mockNewArticleResponse.message);
 
-    expect(history.push.mock.calls.length).toBe(0);
+    expect(history.push.mock.calls.length).toBe(1);
+    expect(history.push.mock.calls[0][0]).toBe(`/articles/${mockNewArticleResponse.articleId}`)
 
     expect(articleService.createArticle.mock.calls.length).toBe(1);
     expect(articleService.createArticle.mock.calls[0][0]).toStrictEqual(testState);

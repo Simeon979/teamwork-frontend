@@ -31,7 +31,7 @@ const ArticleEdit = ({ notify, history }) => {
         history.push('/signin');
       } else if (response.status === 'success') {
         notify(response.data.message);
-        setInputState(cleanState);
+        history.push(`/articles/${response.data.articleId}`);
       }
     } catch (error) {
       notify('cannot submit your input');

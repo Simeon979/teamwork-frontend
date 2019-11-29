@@ -38,7 +38,7 @@ const ArticleEdit = ({ notify, history }) => {
     }
   };
 
-  return <ArticleForm handleChange={handleChange} handleSubmit={handleSubmit} state={inputState} />;
+  return <ArticleForm handleChange={handleChange} handleSubmit={handleSubmit} state={inputState} isUpdate={false} />;
 };
 
 ArticleEdit.propTypes = {

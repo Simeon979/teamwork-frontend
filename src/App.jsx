@@ -3,6 +3,7 @@ import { Switch, Redirect, Route } from 'react-router-dom';
 import * as jwtDecode from 'jwt-decode';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import 'normalize.css';
 
 import Main from './Main';
 import SignInWithHistory from './User/SignIn';

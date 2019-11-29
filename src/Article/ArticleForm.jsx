@@ -1,39 +1,46 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import {
+  FormContainer, FormHeader, Form, InputLabel, Input, TextArea, Submit,
+} from '../shared/Form';
+
 const ArticleForm = ({
   handleChange, handleSubmit, state, isUpdate,
 }) => (
-  <form data-testid="articleForm" onSubmit={handleSubmit}>
-    <label htmlFor="title">
+  <FormContainer>
+    <FormHeader>New Article</FormHeader>
+    <Form data-testid="articleForm" onSubmit={handleSubmit}>
+      <InputLabel htmlFor="title">
       Title
-      <input
-        data-testid="title"
-        id="title"
-        type="text"
-        placeholder="Title"
-        onChange={handleChange}
-        value={state.title}
-        required
-      />
-    </label>
+        <Input
+          data-testid="title"
+          id="title"
+          type="text"
+          placeholder="Title"
+          onChange={handleChange}
+          value={state.title}
+          required
+        />
+      </InputLabel>
 
-    <label htmlFor="article">
+      <InputLabel htmlFor="article">
       Article
-      <textarea
-        data-testid="article"
-        id="article"
-        placeholder="Article"
-        onChange={handleChange}
-        value={state.article}
-        required
-      >
-        {state.value}
-      </textarea>
-    </label>
+        <TextArea
+          data-testid="article"
+          id="article"
+          placeholder="Article"
+          onChange={handleChange}
+          value={state.article}
+          required
+        >
+          {state.value}
+        </TextArea>
+      </InputLabel>
 
-    <input data-testid="submit-button" type="submit" value={isUpdate ? 'Update' : 'Post'} />
-  </form>
+      <Submit data-testid="submit-button" type="submit" value={isUpdate ? 'Update' : 'Post'} />
+    </Form>
+  </FormContainer>
 );
 
 ArticleForm.propTypes = {

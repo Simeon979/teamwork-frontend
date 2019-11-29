@@ -1,107 +1,114 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const NewUserForm = ({ handleChange, handleSubmit, state }) => (
-  <form data-testid="newUserForm" onSubmit={handleSubmit}>
-    <label htmlFor="firstName">
-        First Name
-      <input
-        data-testid="firstName"
-        id="firstName"
-        type="text"
-        placeholder="First Name"
-        onChange={handleChange}
-        value={state.firstName}
-        required
-      />
-    </label>
-    <label htmlFor="lastName">
-        Last Name
-      <input
-        data-testid="lastName"
-        id="lastName"
-        type="text"
-        placeholder="Last Name"
-        onChange={handleChange}
-        value={state.lastName}
-        required
-      />
-    </label>
-    <label htmlFor="email">
-        Email
-      <input
-        data-testid="email"
-        id="email"
-        type="email"
-        placeholder="Email"
-        onChange={handleChange}
-        value={state.email}
-        required
-      />
-    </label>
-    <label htmlFor="password">
-        Password
-      <input
-        data-testid="password"
-        id="password"
-        type="password"
-        placeholder="Password"
-        onChange={handleChange}
-        value={state.password}
-        required
-      />
-    </label>
-    <label htmlFor="gender">
-        Gender
-      <input
-        data-testid="gender"
-        id="gender"
-        type="text"
-        placeholder="Gender"
-        onChange={handleChange}
-        value={state.gender}
-        required
-      />
-    </label>
-    <label htmlFor="jobRole">
-        Job Role
-      <input
-        data-testid="jobRole"
-        id="jobRole"
-        type="text"
-        placeholder="Job Role"
-        onChange={handleChange}
-        value={state.jobRole}
-        required
-      />
-    </label>
-    <label htmlFor="department">
-        Department
-      <input
-        data-testid="department"
-        id="department"
-        type="text"
-        placeholder="Department"
-        onChange={handleChange}
-        value={state.department}
-        required
-      />
-    </label>
-    <label htmlFor="address">
-        Address
-      <input
-        data-testid="address"
-        id="address"
-        type="text"
-        placeholder="Address"
-        onChange={handleChange}
-        value={state.address}
-        required
-      />
-    </label>
+import {
+  FormContainer, FormHeader, Form, InputLabel, Input, Submit,
+} from '../shared/Form';
 
-    <input data-testid="submit-button" type="submit" value="Create" />
-  </form>
+const NewUserForm = ({ handleChange, handleSubmit, state }) => (
+  <FormContainer>
+    <FormHeader>Create new Employee profile</FormHeader>
+    <Form data-testid="newUserForm" onSubmit={handleSubmit}>
+      <InputLabel htmlFor="firstName">
+        First Name
+        <Input
+          data-testid="firstName"
+          id="firstName"
+          type="text"
+          placeholder="First Name"
+          onChange={handleChange}
+          value={state.firstName}
+          required
+        />
+      </InputLabel>
+      <InputLabel htmlFor="lastName">
+        Last Name
+        <Input
+          data-testid="lastName"
+          id="lastName"
+          type="text"
+          placeholder="Last Name"
+          onChange={handleChange}
+          value={state.lastName}
+          required
+        />
+      </InputLabel>
+      <InputLabel htmlFor="email">
+        Email
+        <Input
+          data-testid="email"
+          id="email"
+          type="email"
+          placeholder="Email"
+          onChange={handleChange}
+          value={state.email}
+          required
+        />
+      </InputLabel>
+      <InputLabel htmlFor="password">
+        Password
+        <Input
+          data-testid="password"
+          id="password"
+          type="password"
+          placeholder="Password"
+          onChange={handleChange}
+          value={state.password}
+          required
+        />
+      </InputLabel>
+      <InputLabel htmlFor="gender">
+        Gender
+        <Input
+          data-testid="gender"
+          id="gender"
+          type="text"
+          placeholder="Gender"
+          onChange={handleChange}
+          value={state.gender}
+          required
+        />
+      </InputLabel>
+      <InputLabel htmlFor="jobRole">
+        Job Role
+        <Input
+          data-testid="jobRole"
+          id="jobRole"
+          type="text"
+          placeholder="Job Role"
+          onChange={handleChange}
+          value={state.jobRole}
+          required
+        />
+      </InputLabel>
+      <InputLabel htmlFor="department">
+        Department
+        <Input
+          data-testid="department"
+          id="department"
+          type="text"
+          placeholder="Department"
+          onChange={handleChange}
+          value={state.department}
+          required
+        />
+      </InputLabel>
+      <InputLabel htmlFor="address">
+        Address
+        <Input
+          data-testid="address"
+          id="address"
+          type="text"
+          placeholder="Address"
+          onChange={handleChange}
+          value={state.address}
+          required
+        />
+      </InputLabel>
+
+      <Submit data-testid="submit-button" type="submit" value="Create" />
+    </Form>
+  </FormContainer>
 );
 
 NewUserForm.propTypes = {

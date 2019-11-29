@@ -1,36 +1,43 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import {
+  FormContainer, FormHeader, Form, InputLabel, Input, Submit,
+} from '../shared/Form';
+
 const SignInForm = ({ handleChange, handleSubmit, state }) => (
-  <form data-testid="signinForm" onSubmit={handleSubmit}>
-    <label htmlFor="email">
+  <FormContainer>
+    <FormHeader>Sign In</FormHeader>
+    <Form data-testid="signinForm" onSubmit={handleSubmit}>
+      <InputLabel htmlFor="email">
         Email
-      <input
-        data-testid="email"
-        id="email"
-        type="email"
-        placeholder="Email"
-        onChange={handleChange}
-        value={state.email}
-        required
-      />
-    </label>
+        <Input
+          data-testid="email"
+          id="email"
+          type="email"
+          placeholder="Email"
+          onChange={handleChange}
+          value={state.email}
+          required
+        />
+      </InputLabel>
 
-    <label htmlFor="password">
+      <InputLabel htmlFor="password">
         Password
-      <input
-        data-testid="password"
-        id="password"
-        type="password"
-        placeholder="Password"
-        onChange={handleChange}
-        value={state.password}
-        required
-      />
-    </label>
+        <Input
+          data-testid="password"
+          id="password"
+          type="password"
+          placeholder="Password"
+          onChange={handleChange}
+          value={state.password}
+          required
+        />
+      </InputLabel>
 
-    <input data-testid="submit-button" type="submit" value="Sign In" />
-  </form>
+      <Submit data-testid="submit-button" type="submit" value="Sign In" />
+    </Form>
+  </FormContainer>
 );
 
 SignInForm.propTypes = {

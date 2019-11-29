@@ -9,6 +9,7 @@ const ArticleDisplay = ({ article }) => (
     ? <p>{article.error}</p>
     : (
       <FeedItem
+        id={article.data.id}
         createdOn={article.data.createdOn}
         title={article.data.title}
         authorName={article.data.authorName}
@@ -26,11 +27,10 @@ ArticleDisplay.propTypes = {
       id: PropTypes.number.isRequired,
       createdOn: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
-      authorId: PropTypes.number.isRequired,
       authorName: PropTypes.string.isRequired,
       article: PropTypes.string,
       url: PropTypes.string,
-    }).isRequired,
+    }),
   }).isRequired,
 };
 
@@ -42,7 +42,7 @@ const Article = ({ articleId, notify }) => {
     const fetchArticle = async () => {
       try {
         const serverArticle = await articleService.getArticle(articleId);
-        setArticle({ ...serverArticle, authorId: serverArticle.id });
+        setArticle(serverArticle);
         setIsLoading(false);
       } catch (err) {
         notify('Unable to get feed');

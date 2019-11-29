@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 import FeedItem from './FeedItem';
 import feedService from '../services/feed';
@@ -10,6 +11,7 @@ const FeedDisplay = ({ feed }) => (
     : feed.data.map((feedItem) => (
       <FeedItem
         key={feedItem.id}
+        id={feedItem.id}
         createdOn={feedItem.createdOn}
         title={feedItem.title}
         authorName={feedItem.authorName}
@@ -35,6 +37,14 @@ FeedDisplay.propTypes = {
   }).isRequired,
 };
 
+const FeedContainer = styled.main`
+  min-height: 80vh;
+`;
+
+const FeedHeader = styled.h1`
+  margin-bottom: 5em;
+`;
+
 const Feed = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [feed, setFeed] = useState([]);
@@ -54,9 +64,9 @@ const Feed = () => {
   }, []);
 
   return (
-    <>
+    <FeedContainer>
       <header>
-        <h1>Feed</h1>
+        <FeedHeader>Feed</FeedHeader>
       </header>
       <main>
         { feed.data && feed.data.length === 0 && !isLoading && <p>Nothing here at the moment</p>}
@@ -64,7 +74,7 @@ const Feed = () => {
           ? <p>Loading feeds</p>
           : <FeedDisplay feed={feed} />}
       </main>
-    </>
+    </FeedContainer>
   );
 };
 
